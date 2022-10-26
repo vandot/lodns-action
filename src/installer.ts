@@ -56,5 +56,5 @@ const getFilename = (): string => {
   if (context.osPlat == 'win32') {
     platform = 'windows';
   }
-  return util.format('lodns_%s_%s%s', platform, arch, ext);
+  return util.format('lodns-%s-%s%s', platform, arch, ext);
 };
