@@ -22,4 +22,5 @@ jobs:
         uses: vandot/lodns-action@test
       - name: Test server
         run: |
-          dig @127.0.0.1 A example.lo
+          dig @127.0.0.1 -p 5354 A example.lo
+          ping -c 1 example.lo
