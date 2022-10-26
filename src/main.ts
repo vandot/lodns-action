@@ -21,7 +21,7 @@ async function run(): Promise<void> {
 
     await exec.exec(`sudo ${lodns} install`);
 
-    const child = child_process.spawn('sudo', [lodns, 'start'], {
+    const child = child_process.spawn(lodns, ['start'], {
     detached: true,
     windowsHide: true,
     shell: true,

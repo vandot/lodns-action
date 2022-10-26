@@ -9,6 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     name: Test lodns action
     steps:
+      - name: systemd active
+        run: |
+          ps --no-headers -o comm 1
+      - name: systemd-resolved active
+        run: |
+          systemctl is-active systemd-resolved.service
+      - name: systemd version
+        run: |
+          systemd --version | head -1 | awk '{ print $2}'
+          systemd --version
       - name: lodns
         uses: vandot/lodns-action@test
       - name: Test server
