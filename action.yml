@@ -1,0 +1,21 @@
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: 'lodns Action'
+description: 'GitHub Action for lodns, a simple DNS server for local development'
+author: 'vandot'
+branding:
+  color: 'orange'
+  icon: 'server'
+
+inputs:
+  version:
+    description: 'lodns version'
+    default: 'latest'
+    required: false
+  install-only:
+    description: 'just install lodns'
+    default: 'false'
+    required: false
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
