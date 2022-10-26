@@ -23,10 +23,11 @@ export async function install(version: string): Promise<string> {
   const downloadPath: string = await tc.downloadTool(downloadUrl);
   core.info(`Downloaded to ${downloadPath}`);
 
-  const cachePath: string = await tc.cacheDir(downloadPath, 'lodns-action', semver);
-  core.debug(`Cached to ${cachePath}`);
+  // const cachePath: string = await tc.cacheDir(downloadPath, 'lodns-action', semver);
+  // core.debug(`Cached to ${cachePath}`);
 
-  const exePath: string = path.join(cachePath, getFilename());
+  // const exePath: string = path.join(cachePath, getFilename());
+  const exePath: string = path.join(downloadPath, getFilename());
   core.debug(`Exe path is ${exePath}`);
   core.endGroup();
 
