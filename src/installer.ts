@@ -1,14 +1,11 @@
-import * as os from 'os';
 import * as path from 'path';
 import * as util from 'util';
+import * as context from './context';
 import * as github from './github';
 import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
 
-const osPlat: string = os.platform();
-const osArch: string = os.arch();
-
-export async function getLodns(version: string): Promise<string> {
+export async function install(version: string): Promise<string> {
   core.startGroup(`Checking lodns ${version} release...`);
   const release: github.GitHubRelease | null = await github.getRelease(version);
   if (!release) {
@@ -18,7 +15,7 @@ export async function getLodns(version: string): Promise<string> {
   core.info(`lodns ${semver} found`);
   core.endGroup();
 
-  const filename = util.format('%s%s', getName(semver), osPlat == 'win32' ? '.exe' : '');
+  const filename = util.format('%s', getFilename());
   const downloadUrl = util.format('https://github.com/vandot/lodns/releases/download/%s/%s', semver, filename);
 
   core.startGroup(`Downloading ${downloadUrl}...`);
@@ -29,21 +26,35 @@ export async function getLodns(version: string): Promise<string> {
   const cachePath: string = await tc.cacheDir(downloadPath, 'lodns-action', semver);
   core.debug(`Cached to ${cachePath}`);
 
-  const exePath: string = path.join(cachePath, getName(semver), osPlat == 'win32' ? '.exe' : '');
+  const exePath: string = path.join(cachePath, getFilename());
   core.debug(`Exe path is ${exePath}`);
   core.endGroup();
 
   return exePath;
 }
 
-function getName(version: string): string {
-  let platform = '';
-  if (osPlat == 'win32') {
-    platform = osArch == 'x64' ? 'win64' : 'win32';
-  } else if (osPlat == 'linux') {
-    platform = osArch == 'x64' ? 'amd64_linux' : 'i386_linux';
-  } else if (osPlat == 'darwin') {
-    platform = osArch == 'x64' ? 'amd64_linux' : 'i386_linux';
+const getFilename = (): string => {
+  let arch: string;
+  let ext: string = '';
+  let platform: string = context.osPlat;
+  switch (context.osArch) {
+    case 'x64': {
+      arch = 'amd64';
+      break;
+    }
+    case 'x32': {
+      throw new Error(`Unsupported Arch`);
+    }
+    case 'arm': {
+      throw new Error(`Unsupported Arch`);
+    }
+    default: {
+      arch = context.osArch;
+      break;
+    }
   }
-  return util.format('lodns-%s-%s', version, platform);
-}
+  if (context.osPlat == 'win32') {
+    platform = 'windows';
+  }
+  return util.format('lodns_%s_%s%s', platform, arch, ext);
+};

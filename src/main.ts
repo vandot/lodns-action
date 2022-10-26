@@ -9,7 +9,7 @@ import * as exec from '@actions/exec';
 async function run(): Promise<void> {
   try {
     const inputs: context.Inputs = await context.getInputs();
-    const lodns = await installer.getLodns(inputs.version);
+    const lodns = await installer.install(inputs.version);
     core.info(`lodns ${inputs.version} installed successfully`);
 
     if (inputs.installOnly) {
@@ -19,7 +19,7 @@ async function run(): Promise<void> {
       return;
     }
 
-    await exec.exec(`${lodns} 'install'`, undefined);
+    await exec.exec(`${lodns} 'install'`);
 
     const child = child_process.spawn(lodns, ['start'], {
     detached: true,
