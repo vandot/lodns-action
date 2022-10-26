@@ -10,7 +10,7 @@ jobs:
     name: Test lodns action
     steps:
       - name: lodns
-        uses: vandot/lodns-action
+        uses: vandot/lodns-action@main
       - name: Test server
         run: |
           dig @127.0.0.1 A example.lo
