@@ -68,7 +68,7 @@ const getFilename = (): string => {
 };
 
 
-const version = execSync("systemd --version | head -1 | awk '{ print $2}'");
+const version = execSync('systemd --version | head -1 | awk \'{print $2}\'');
 
 export const useSudo = (): boolean => {
   let sudo: boolean = false;
