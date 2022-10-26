@@ -5,25 +5,14 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Test lodns action
     steps:
-      - name: systemd active
-        run: |
-          ps --no-headers -o comm 1
-      - name: systemd-resolved active
-        run: |
-          systemctl is-active systemd-resolved.service
-      - name: systemd version
-        run: |
-          systemd --version | head -1 | awk '{ print $2}'
-          systemd --version
       - name: lodns
         uses: vandot/lodns-action@test
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
       - name: Test server
         run: |
-          dig @127.0.0.1 -p 5354 A example.lo
+          dig @169.254.1.1 A example.lo
           ping -c 1 example.lo
-

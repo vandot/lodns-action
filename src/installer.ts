@@ -4,6 +4,7 @@ import * as context from './context';
 import * as github from './github';
 import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
+import {execSync} from 'child_process';
 
 export async function install(version: string): Promise<string> {
   core.startGroup(`Checking lodns ${version} release...`);
@@ -65,3 +66,18 @@ const getFilename = (): string => {
   }
   return util.format('lodns-%s-%s', platform, arch);
 };
+
+
+const version = execSync("systemd --version | head -1 | awk '{ print $2}'");
+
+export const useSudo = (): boolean => {
+  let sudo: boolean = false;
+  if (context.osPlat == 'linux') {
+    if (Number(version) <= 245) {
+      sudo = true;
+    }
+  } else if (context.osPlat == 'win32') {
+    sudo = true;
+  }
+  return sudo
+}
