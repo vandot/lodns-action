@@ -1,0 +1,9 @@
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test lodns action
+    steps:
+      - name: lodns
+        uses: vandot/lodns-action
