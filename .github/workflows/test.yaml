@@ -20,7 +20,10 @@ jobs:
           systemd --version
       - name: lodns
         uses: vandot/lodns-action@test
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Test server
         run: |
           dig @127.0.0.1 -p 5354 A example.lo
           ping -c 1 example.lo
+
