@@ -19,7 +19,7 @@ async function run(): Promise<void> {
       return;
     }
 
-    await exec.exec(`${lodns} 'install'`);
+    await exec.exec(`${lodns} install`);
 
     const child = child_process.spawn(lodns, ['start'], {
     detached: true,
