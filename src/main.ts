@@ -27,26 +27,28 @@ async function run(): Promise<void> {
      }
     }
 
-    var child: cp.ChildProcess
+    // var child: cp.ChildProcess
     if (installer.useSudo()) {
       core.info(`Starting with sudo!`);
-      child = cp.spawn('sudo', [lodns, 'start'], {
+      const child = cp.spawn('sudo', [lodns, 'start'], {
       detached: true,
       windowsHide: true,
       shell: true,
       stdio: 'ignore'
       });
+      child.unref();
     } else {
       core.info(`Starting!`);
-      child = cp.spawn(lodns, ['start'], {
+      const child = cp.spawn(lodns, ['start'], {
       detached: true,
       windowsHide: true,
       shell: true,
       stdio: 'ignore'
       });
+      child.unref();
     }
 
-    child.unref();
+    // child.unref();
 
   } catch (error) {
     core.setFailed(error.message);
