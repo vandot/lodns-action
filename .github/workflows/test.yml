@@ -37,8 +37,6 @@ jobs:
         uses: ./
         with:
           install-only: true
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - name: Test lodns
         run: |
-          lodns
+          lodns-linux-amd64
