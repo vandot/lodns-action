@@ -10,10 +10,10 @@ jobs:
     steps:
       - name: lodns
         uses: vandot/lodns-action@test
-        with:
-          install-only: true
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+        # with:
+        #   install-only: true
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
       - name: Test server
         run: |
           dig @169.254.1.1 A example.lo
