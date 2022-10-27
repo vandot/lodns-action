@@ -5,6 +5,7 @@ import * as github from './github';
 import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
 import {execSync} from 'child_process';
+import {networkInterfaces} from 'os';
 
 export async function install(version: string): Promise<string> {
   core.startGroup(`Checking lodns ${version} release...`);
@@ -67,9 +68,8 @@ const getFilename = (): string => {
   return util.format('lodns-%s-%s', platform, arch);
 };
 
-const version = execSync('systemd --version | head -1 | awk \'{print $2}\'');
-
 export const useSudo = (): boolean => {
+  const version = execSync('systemd --version | head -1 | awk \'{print $2}\'');
   let sudo: boolean = false;
   if (context.osPlat == 'linux') {
     if (Number(version) <= 245) {
@@ -79,4 +79,23 @@ export const useSudo = (): boolean => {
     sudo = true;
   }
   return sudo;
+}
+
+export async function ipSet(): Promise<boolean> {
+  return new Promise((cb) => {
+    const i = setInterval(() => {
+      let nets = networkInterfaces();
+      let [n] = nets.lo0?.filter(x => x.address === '127.0.0.1') || []
+      if (n) {
+        clearTimeout(t);
+        cb(true);
+      }
+    }, 1000);
+
+    const t = setTimeout(() => {
+      clearInterval(i);
+      cb(false);
+    }, 10000);
+  })
+
 }
