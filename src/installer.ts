@@ -89,13 +89,13 @@ export async function ipSet(): Promise<boolean> {
       if (n) {
         clearTimeout(t);
         console.log(n);
-        cb(true);
+        return cb(true);
       }
     }, 1000);
 
     const t = setTimeout(() => {
       clearInterval(i);
-      cb(false);
+      return cb(false);
     }, 10000);
   })
 }
