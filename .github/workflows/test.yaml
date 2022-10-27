@@ -18,3 +18,17 @@ jobs:
         run: |
           dig @169.254.1.1 A example.lo
           ping -c 1 example.lo
+  test-2204:
+    runs-on: ubuntu-22.04
+    name: Test lodns action
+    steps:
+      - name: lodns
+        uses: vandot/lodns-action@test
+        # with:
+        #   install-only: true
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      - name: Test server
+        run: |
+          dig @169.254.1.1 A -p 5354 example.lo
+          ping -c 1 example.lo
