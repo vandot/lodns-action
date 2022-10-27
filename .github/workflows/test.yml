@@ -17,12 +17,12 @@ jobs:
         uses: actions/checkout@v3
       - name: lodns-action
         uses: ./
-      - name: Test server
+      - name: Test server macOS
         if: matrix.os == 'macos-latest'
         run: |
           dig @127.0.0.1 -p 5354 A example.lo
           ping -c 1 example.lo
-      - name: Test server
+      - name: Test server Ubuntu
         if: matrix.os != 'macos-latest'
         run: |
           dig A example.lo
@@ -37,6 +37,6 @@ jobs:
         uses: ./
         with:
           install-only: true
-      - name: Test lodns
+      - name: Test lodns binary
         run: |
           lodns-linux-amd64
