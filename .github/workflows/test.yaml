@@ -28,7 +28,7 @@ jobs:
       #   uses: mxschmitt/action-tmate@v3
       - name: Test server
         run: |
-          dig @169.254.1.1 A example.lo
+          dig A example.lo
           ping -c 1 example.lo
   test-2204:
     runs-on: ubuntu-22.04
@@ -54,5 +54,5 @@ jobs:
       #   uses: mxschmitt/action-tmate@v3
       - name: Test server
         run: |
-          dig @169.254.1.1 -p 5354 A example.lo
+          dig A example.lo
           ping -c 1 example.lo
