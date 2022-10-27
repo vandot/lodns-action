@@ -1,5 +1,5 @@
 import * as path from 'path';
-import * as cp from 'child_process';
+import {spawn} from 'child_process';
 import * as context from './context';
 import * as installer from './installer';
 import * as core from '@actions/core';
@@ -30,16 +30,16 @@ async function run(): Promise<void> {
     // var child: cp.ChildProcess
     if (installer.useSudo()) {
       core.info(`Starting with sudo!`);
-      const child = cp.spawn('sudo', [lodns, 'start'], {
+      const sudoChild = spawn('sudo', [lodns, 'start'], {
       detached: true,
       windowsHide: true,
       shell: true,
       stdio: 'ignore'
       });
-      child.unref();
+      sudoChild.unref();
     } else {
       core.info(`Starting!`);
-      const child = cp.spawn(lodns, ['start'], {
+      const child = spawn(lodns, ['start'], {
       detached: true,
       windowsHide: true,
       shell: true,
