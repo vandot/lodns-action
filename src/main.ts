@@ -21,7 +21,7 @@ async function run(): Promise<void> {
     await exec.exec(`sudo ${lodns} install`);
 
     if (context.osPlat == 'linux') {
-     const s = await installer.ipSet()
+     const s = await installer.ipSet();
      if (!s) {
       throw new Error(`IP not set`);
      }
