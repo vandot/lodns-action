@@ -1,5 +1,4 @@
-# https://help.github.com/en/articles/metadata-syntax-for-github-actions
-name: 'lodns Action'
+name: 'lodns action'
 description: 'GitHub Action for lodns, a simple DNS server for local development'
 author: 'vandot'
 branding:

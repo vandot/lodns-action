@@ -32,7 +32,7 @@ Following inputs can be used as `step.with` keys
 
 | Name          | Type    | Default   | Description                     |
 |---------------|---------|-----------|---------------------------------|
-| `version`     | String  | `0.1.3`   | lodns version. Example: `0.1.3`|
+| `version`     | String  | `0.1.3`   | lodns version. Example: `0.1.3` |
 | `install-only`| Bool    | `false`   | just install lodns              |
 
 ## Limitation
