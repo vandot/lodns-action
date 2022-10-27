@@ -30,5 +30,5 @@ jobs:
       #   uses: mxschmitt/action-tmate@v3
       - name: Test server
         run: |
-          dig @169.254.1.1 A -p 5354 example.lo
+          dig @169.254.1.1 -p 5354 A example.lo
           ping -c 1 example.lo

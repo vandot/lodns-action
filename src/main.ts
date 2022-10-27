@@ -21,27 +21,30 @@ async function run(): Promise<void> {
 
     await exec.exec(`sudo ${lodns} install`);
 
-    let child: child_process.ChildProcess
+    // let child: child_process.ChildProcess
 
     if (installer.useSudo()) {
-      child = child_process.spawn('sudo', [lodns, 'start'], {
+      let child = child_process.spawn('sudo', [lodns, 'start'], {
       detached: true,
       windowsHide: true,
       shell: true,
       stdio: [
           'ignore'
       ]
-      })} else {
-      child = child_process.spawn(lodns, ['start'], {
+      });
+      child.unref();
+      } else {
+      let child = child_process.spawn(lodns, ['start'], {
       detached: true,
       windowsHide: true,
       shell: true,
       stdio: [
           'ignore'
       ]
-      })
+      });
+      child.unref();
     }
-    child.unref();
+    
 
   } catch (error) {
     core.setFailed(error.message);
