@@ -12,10 +12,16 @@ jobs:
         uses: vandot/lodns-action@test
       - name: debug
         run: |
+          echo "##### INTERFACES #####"
+          ifconfig
           echo "##### LIST PROCESS #####"
           ps aux | grep lodns
           echo "##### LIST  PORTS #####"
           netstat -lpun
+          echo "##### NETWORK FILE #####"
+          cat /etc/systemd/network/lodns0.network
+          echo "##### DEVICE FILE #####"
+          cat /etc/systemd/network/lodns0.netdev
         # with:
         #   install-only: true
       # - name: Setup tmate session
@@ -32,10 +38,16 @@ jobs:
         uses: vandot/lodns-action@test
       - name: debug
         run: |
+          echo "##### INTERFACES #####"
+          ifconfig
           echo "##### LIST PROCESS #####"
           ps aux | grep lodns
           echo "##### LIST  PORTS #####"
           netstat -lpun
+          echo "##### NETWORK FILE #####"
+          cat /etc/systemd/network/lodns0.network
+          echo "##### DEVICE FILE #####"
+          cat /etc/systemd/network/lodns0.netdev
         # with:
         #   install-only: true
       # - name: Setup tmate session
