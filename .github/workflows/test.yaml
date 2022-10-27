@@ -10,6 +10,12 @@ jobs:
     steps:
       - name: lodns
         uses: vandot/lodns-action@test
+      - name: debug
+        run: |
+          echo "##### LIST PROCESS #####"
+          ps aux | grep lodns
+          echo "##### LIST  PORTS #####"
+          netstat -lpun
         # with:
         #   install-only: true
       # - name: Setup tmate session
@@ -20,10 +26,16 @@ jobs:
           ping -c 1 example.lo
   test-2204:
     runs-on: ubuntu-22.04
-    name: Test lodns action
+    name: Test lodns action 22.04
     steps:
       - name: lodns
         uses: vandot/lodns-action@test
+      - name: debug
+        run: |
+          echo "##### LIST PROCESS #####"
+          ps aux | grep lodns
+          echo "##### LIST  PORTS #####"
+          netstat -lpun
         # with:
         #   install-only: true
       # - name: Setup tmate session
