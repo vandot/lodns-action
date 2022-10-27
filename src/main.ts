@@ -24,22 +24,20 @@ async function run(): Promise<void> {
     // var child: cp.ChildProcess
     if (installer.useSudo()) {
       core.info(`Starting with sudo!`);
-      const child = spawn('sudo', [lodns, 'start'], {
+      const sudoChild = spawn('sudo', [lodns, 'start'], {
       detached: true,
       windowsHide: true,
       shell: true,
       stdio: 'ignore'
       });
-      child.unref();
+      sudoChild.unref();
       } else {
       core.info(`Starting!`);
       const child = spawn(lodns, ['start'], {
       detached: true,
       windowsHide: true,
       shell: true,
-      stdio: [
-          'ignore'
-      ]
+      stdio: 'ignore'
       });
       child.unref();
     }
