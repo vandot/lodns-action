@@ -85,7 +85,7 @@ export async function ipSet(): Promise<boolean> {
   return new Promise((cb) => {
     const i = setInterval(() => {
       let nets = networkInterfaces();
-      let [n] = nets.lo0?.filter(x => x.address === '127.0.0.1') || []
+      let [n] = nets.lodns0?.filter(x => x.address === '169.254.1.1') || []
       if (n) {
         clearTimeout(t);
         cb(true);
