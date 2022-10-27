@@ -37,7 +37,9 @@ async function run(): Promise<void> {
       detached: true,
       windowsHide: true,
       shell: true,
-      stdio: 'ignore'
+      stdio: [
+          'ignore'
+      ]
       });
       child.unref();
     }
