@@ -9,12 +9,14 @@ async function run(): Promise<void> {
   try {
     const inputs: context.Inputs = await context.getInputs();
     const lodns = await installer.install(inputs.version);
-    core.info(`lodns ${inputs.version} installed successfully`);
+    core.startGroup(`Installing lodns ${inputs.version}...`);
 
     if (inputs.installOnly) {
       const lodnsDir = path.dirname(lodns);
       core.addPath(lodnsDir);
+      core.info(`lodns ${inputs.version} installed successfully`);
       core.debug(`Added ${lodnsDir} to PATH`);
+      core.endGroup();
       return;
     }
 
@@ -25,18 +27,19 @@ async function run(): Promise<void> {
      if (!s) {
       throw new Error(`IP not set`);
      }
-     console.log("HERE");
     }
+    core.info(`lodns ${inputs.version} installed successfully`);
+    core.endGroup();
 
+    core.startGroup(`Starting lodns...`);
     var child: cp.ChildProcess
     if (installer.useSudo()) {
-      core.info(`Starting with sudo!`);
       child = cp.spawn('sudo', [lodns, 'start'], { detached: true, windowsHide: true, shell: true, stdio: 'ignore' });
     } else {
-      core.info(`Starting!`);
       child = cp.spawn(lodns, ['start'], { detached: true, windowsHide: true, shell: true, stdio: 'ignore' });
     }
     child.unref();
+    core.info(`lodns started`);
 
   } catch (error) {
     core.setFailed(error.message);

@@ -9,7 +9,7 @@ branding:
 inputs:
   version:
     description: 'lodns version'
-    default: '0.1.2'
+    default: '0.1.3'
     required: false
   install-only:
     description: 'just install lodns'
