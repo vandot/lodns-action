@@ -88,6 +88,7 @@ export async function ipSet(): Promise<boolean> {
       let [n] = nets.lodns0?.filter(x => x.address === '169.254.1.1') || []
       if (n) {
         clearTimeout(t);
+        console.log(n);
         cb(true);
       }
     }, 1000);

@@ -1,5 +1,5 @@
 import * as path from 'path';
-import {spawn} from 'child_process';
+import * as cp from 'child_process';
 import * as context from './context';
 import * as installer from './installer';
 import * as core from '@actions/core';
@@ -25,30 +25,18 @@ async function run(): Promise<void> {
      if (!s) {
       throw new Error(`IP not set`);
      }
-     console.log("HERE")
+     console.log("HERE");
     }
 
-    // var child: cp.ChildProcess
+    var child: cp.ChildProcess
     if (installer.useSudo()) {
       core.info(`Starting with sudo!`);
-      const sudoChild = spawn('sudo', [lodns, 'start'], {
-      detached: true,
-      windowsHide: true,
-      shell: true,
-      stdio: 'ignore'
-      });
-      sudoChild.unref();
-      } else {
+      child = cp.spawn('sudo', [lodns, 'start'], { detached: true, windowsHide: true, shell: true, stdio: 'ignore' });
+    } else {
       core.info(`Starting!`);
-      const child = spawn(lodns, ['start'], {
-      detached: true,
-      windowsHide: true,
-      shell: true,
-      stdio: 'ignore'
-      });
-      child.unref();
+      child = cp.spawn(lodns, ['start'], { detached: true, windowsHide: true, shell: true, stdio: 'ignore' });
     }
-    // child.unref();
+    child.unref();
 
   } catch (error) {
     core.setFailed(error.message);
