@@ -25,6 +25,7 @@ async function run(): Promise<void> {
      if (!s) {
       throw new Error(`IP not set`);
      }
+     console.log("HERE")
     }
 
     // var child: cp.ChildProcess
@@ -37,7 +38,7 @@ async function run(): Promise<void> {
       stdio: 'ignore'
       });
       sudoChild.unref();
-    } else {
+      } else {
       core.info(`Starting!`);
       const child = spawn(lodns, ['start'], {
       detached: true,
@@ -47,7 +48,6 @@ async function run(): Promise<void> {
       });
       child.unref();
     }
-
     // child.unref();
 
   } catch (error) {

@@ -97,5 +97,4 @@ export async function ipSet(): Promise<boolean> {
       cb(false);
     }, 10000);
   })
-
 }
