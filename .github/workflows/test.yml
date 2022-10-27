@@ -13,6 +13,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Test lodns-action on ${{ matrix.os }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: lodns-action
         uses: ./
       - name: Test server
@@ -29,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Test lodns-action install-only
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: lodns-action
         uses: ./
         with:
