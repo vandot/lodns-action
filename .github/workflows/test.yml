@@ -5,6 +5,9 @@ on:
     branches:
       - '**'
 
+env:
+ BRANCH_NAME: ${{ github.ref_name }}
+
 jobs:
   test:
     strategy:
@@ -14,7 +17,7 @@ jobs:
     name: Test lodns-action on ${{ matrix.os }}
     steps:
       - name: lodns
-        uses: vandot/lodns-action@${{ github.ref_name }}
+        uses: vandot/lodns-action@${{ env.BRANCH_NAME }}
       - name: Test server
         if: matrix.os != 'windows-latest'
         run: |
@@ -30,7 +33,7 @@ jobs:
     name: Test lodns-action install-only
     steps:
       - name: lodns
-        uses: vandot/lodns-action@${{ github.ref_name }}
+        uses: vandot/lodns-action@${{ env.BRANCH_NAME }}
         with:
           install-only: true
       - name: Test lodns
