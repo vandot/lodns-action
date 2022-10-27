@@ -1,0 +1,42 @@
+name: Test lodns-action
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    name: Test lodns-action on ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: lodns-action
+        uses: ./
+      - name: Test server macOS
+        if: matrix.os == 'macos-latest'
+        run: |
+          dig @127.0.0.1 -p 5354 A example.lo
+          ping -c 1 example.lo
+      - name: Test server Ubuntu
+        if: matrix.os != 'macos-latest'
+        run: |
+          dig A example.lo
+          ping -c 1 example.lo
+  test-install-only:
+    runs-on: ubuntu-latest
+    name: Test lodns-action install-only
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: lodns-action
+        uses: ./
+        with:
+          install-only: true
+      - name: Test lodns binary
+        run: |
+          lodns-linux-amd64
